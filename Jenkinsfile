@@ -34,7 +34,7 @@ pipeline {
             steps {
                 dir('FunctionalTesting') {
                     git 'https://github.com/sai89850/FunctionalTesting.git'
-                    sh '/var/lib/jenkins/workspace/DeclarativePipeline/FunctionalTesting/testing.jar'
+                    sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipeline/FunctionalTesting/testing.jar'
                 }
             }
         }
