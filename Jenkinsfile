@@ -21,7 +21,7 @@ pipeline
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline/webapp/target/webapp.war ubuntu@13.60.183.15:/var/lib/tomcat10/webapps/testapp.war'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '9b4f91a2-f5ae-4dc8-b1b0-c2dfc68e9bd6', path: '', url: 'http://13.60.183.15:8080/')], contextPath: 'testapp', war: '**/*.war'
             }
         }
         stage('Testing')
@@ -35,7 +35,7 @@ pipeline
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@16.16.241.43:/var/lib/tomcat10/webapps/prodapp.war'
+                eploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '9b4f91a2-f5ae-4dc8-b1b0-c2dfc68e9bd6', path: '', url: 'http://16.16.241.43:8080/')], contextPath: 'prodapp', war: '**/*.war'
             }
         }
     }
