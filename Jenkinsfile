@@ -7,7 +7,7 @@ pipeline
         {
             steps
             {
-                git 'https://github.com/IntelliqDevops/maven.git'
+                git 'https://github.com/sai89850/maven.git'
             }
         }
         stage('Build')
@@ -21,13 +21,13 @@ pipeline
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@172.31.19.223:/var/lib/tomcat10/webapps/testapp.war'
+                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@13.60.35.109:/var/lib/tomcat10/webapps/testapp.war'
             }
         }
         stage('Testing')
         {
             steps{
-            git 'https://github.com/IntelliqDevops/FunctionalTesting.git'
+            git 'https://github.com/sai89850/FunctionalTesting.git'
             sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipeline2/testing.jar'
             }
         }
@@ -35,7 +35,7 @@ pipeline
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@172.31.24.5:/var/lib/tomcat10/webapps/prodapp.war'
+                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@13.60.35.109:/var/lib/tomcat10/webapps/prodapp.war'
             }
         }
     }
