@@ -34,7 +34,7 @@ pipeline {
             steps {
                 dir('FunctionalTesting') {
                     git 'https://github.com/sai89850/FunctionalTesting.git'
-                    sh 'mvn test'
+                    sh '/var/lib/jenkins/workspace/DeclarativePipeline/FunctionalTesting/testing.jar'
                 }
             }
         }
