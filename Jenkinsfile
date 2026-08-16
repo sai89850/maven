@@ -1,60 +1,41 @@
-@Library('mylibrary')_
-
-
 pipeline
 {
     agent any
     stages
     {
-        stage('Download_Master')
+        stage('Download')
         {
             steps
             {
-                script
-                {
-                    cicd.gitDownload("maven")
-                }
+                git 'https://github.com/IntelliqDevops/maven.git'
             }
         }
-        stage('Build_Master')
+        stage('Build')
         {
             steps
             {
-                script
-                {
-                    cicd.buildArtifact()
-                }
+               sh  'mvn package'
             }
         }
-        stage('Deployment_Master')
+        stage('Deployment')
         {
             steps
             {
-                script
-                {
-                    cicd.deployTomcat("DeclarativePipelinewithSharedLibraries","172.31.31.19","myapp")
-                }
+                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@172.31.19.223:/var/lib/tomcat10/webapps/testapp.war'
             }
         }
-        stage('Testing_Master')
+        stage('Testing')
         {
-            steps
-            {
-                script
-                {
-                    cicd.gitDownload("FunctionalTesting")
-                    cicd.executeSelenium("DeclarativePipelinewithSharedLibraries")
-                }
+            steps{
+            git 'https://github.com/IntelliqDevops/FunctionalTesting.git'
+            sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipeline2/testing.jar'
             }
         }
-        stage('Delivery_Master')
+        stage('Delivery')
         {
             steps
             {
-                script
-                {
-                    cicd.deployTomcat("DeclarativePipelinewithSharedLibraries","172.31.25.180","myprodapp")
-                }
+                sh 'scp /var/lib/jenkins/workspace/DeclarativePipeline2/webapp/target/webapp.war ubuntu@172.31.24.5:/var/lib/tomcat10/webapps/prodapp.war'
             }
         }
     }
